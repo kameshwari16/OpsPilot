@@ -1,0 +1,15 @@
+.critical {
+  font-weight: bold;
+}
+
+.high {
+  font-weight: 600;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.low {
+  font-weight: 400;
+}

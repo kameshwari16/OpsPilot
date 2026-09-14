@@ -1,0 +1,69 @@
+<h1>{{title}}</h1>
+<input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="Seach Incidents"
+/>
+
+<p>Searching for: {{searchText}}</p>
+
+@if(isLoading){
+    <p>Loading incidents...</p>
+}
+@else {
+    <p>Total incidents: {{ incidents.length }}</p>
+    @for(incident of incidents;track incident.id){
+        <article>
+            <h1>{{incident.title}}</h1>
+            <p>
+                Incident ID: {{ incident.id }}
+            </p>
+            <p>{{incident.description}}</p>
+
+            <p>
+            Status:
+            @switch(incident.status){
+                @case ('Open') {
+                    <span>🔴 Open</span>
+                }
+                @case('Investigating'){
+                    <span>🟡 Investigating</span>
+                }
+                @case('Resolved'){
+                    <span>🟢 Resolved </span>
+                }
+                @default {
+                    <span>Unknown</span>
+                }
+            }
+            </p>
+            
+            <p>
+                Severity:
+                <span [appSeverityHighlight]="incident.severity">
+                    {{incident.severity}}
+                </span>
+            </p>
+            
+
+            <p>
+                Created: {{incident.createdAt | date:'medium'}}
+            </p>
+
+            <button 
+            [disabled]="incident.status==='Resolved'"
+            (click)="acknowledgeIncident(incident.id)"
+            >
+                Acknowledge
+            </button>
+
+            <p>
+                Status:
+                {{ incident.status | incidentStatus }}
+            </p>
+        </article>
+    }
+    @empty{
+        <p>No incidents found</p>
+    }
+}
