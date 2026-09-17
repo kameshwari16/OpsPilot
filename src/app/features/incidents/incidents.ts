@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IncidentList } from '../../incident-list/incident-list';
+import { IncidentList } from './components/incident-list/incident-list';
 
 @Component({
   imports: [IncidentList],

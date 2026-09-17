@@ -1,0 +1,23 @@
+<div class="incident-card">
+
+  <div class="header">
+    <h3>{{ incident().title }}</h3>
+    <app-status-badge
+        [status]="incident().status"
+    />
+  </div>
+   <p>
+    {{ incident().description }}
+  </p>
+
+  <div>
+    Severity:
+    <strong>
+      {{ incident().severity }}
+    </strong>
+  </div>
+  <button
+  (click)="assignIncident()">
+  Assign to me
+</button>
+</div>

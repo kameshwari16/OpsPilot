@@ -1,0 +1,11 @@
+<header>
+    <div>
+        <p>{{title()}}</p>
+        @if(subtitle()){
+            <p>{{subtitle()}}</p>
+        }
+    </div>
+    <div>
+        <ng-content/>
+    </div>
+</header>

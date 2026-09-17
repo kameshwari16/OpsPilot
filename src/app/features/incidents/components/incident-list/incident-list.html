@@ -1,0 +1,40 @@
+<app-panel>
+<h1 panel-title>Active Incidents</h1>
+<app-page-header 
+  title="Incidents"
+  subtitle="Manage operational incidents"
+>
+<button>Create Incident</button>
+  <button>Export</button>
+</app-page-header>
+<input
+    type="text"
+    [(ngModel)]="searchText"
+    placeholder="Seach Incidents"
+/>
+
+<p>Searching for: {{searchText()}}</p>
+
+@if(isLoading){
+    <p>Loading incidents...</p>
+}
+@else {
+    <p>Total incidents: {{ incidents().length }}</p>
+    @for(incident of filteredIncidents();track incident.id){
+        <app-incident-card
+        [incident]="incident"
+        (assignClicked)="assignIncident($event)"
+        />
+        <app-filter-bar
+        [(search)]="searchText"
+        [(severity)]="selectedSeverity"
+        />
+    }
+    @empty{
+        <p>No incidents found</p>
+    }
+}
+<div panel-actions>
+    <button>Refresh</button>
+  </div>
+</app-panel>
