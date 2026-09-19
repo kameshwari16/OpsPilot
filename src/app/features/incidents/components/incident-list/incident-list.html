@@ -7,11 +7,11 @@
 <button>Create Incident</button>
   <button>Export</button>
 </app-page-header>
-<input
+<!-- <input
     type="text"
     [(ngModel)]="searchText"
     placeholder="Seach Incidents"
-/>
+/> -->
 
 <p>Searching for: {{searchText()}}</p>
 
@@ -19,15 +19,46 @@
     <p>Loading incidents...</p>
 }
 @else {
+    <!-- <app-filter-bar
+        [(search)]="searchText"
+        [(severity)]="selectedSeverity"
+        [(status)]="selectedStatus"
+        /> -->
+    <input #input type="text" placeholder="Search incidents" [value]="searchText()"
+        (input)="updateSearch(input.value)" />
+
+    <select
+        #sev
+        [value]="selectedSeverity()"
+        (change)="updateSeverity(sev.value)"
+    >
+        <option value="All">All</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="Critical">Critical</option>
+    </select>
+
+    <select #statusSelect [value]="selectedStatus()" (change)="updateStatus(statusSelect.value)">
+        <option value="All">All Statuses</option>
+    
+        <option value="Open">
+            Open
+        </option>
+    
+        <option value="Resolved">
+            Resolved
+        </option>
+    </select>
+
+    <button
+        (click)="toggleSort()">
+        Sort:{{selectedDirection()}}
+    </button>
     <p>Total incidents: {{ incidents().length }}</p>
-    @for(incident of filteredIncidents();track incident.id){
+    @for(incident of sortedIncidents();track incident.id){
         <app-incident-card
         [incident]="incident"
         (assignClicked)="assignIncident($event)"
-        />
-        <app-filter-bar
-        [(search)]="searchText"
-        [(severity)]="selectedSeverity"
         />
     }
     @empty{
@@ -38,3 +69,12 @@
     <button>Refresh</button>
   </div>
 </app-panel>
+<div>
+    <p>Number of Critical Incidents: {{criticalIncidentsCount()}}</p>
+</div>
+<div>
+    <p>Total incidents: {{totalCount()}}</p>
+</div>
+<div>
+    <p>Number of open incidents: {{openCount()}}</p>
+</div>

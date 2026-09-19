@@ -9,4 +9,5 @@ import { Component,model } from '@angular/core';
 export class FilterBar {
   search=model('');
   severity=model('All');
+  status=model('All');
 }

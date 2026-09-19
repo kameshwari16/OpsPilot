@@ -15,3 +15,12 @@
     <option value="High">High</option>
     <option value="Critical">Critical</option>
 </select>
+
+<select
+    [value]="status()"
+    (change)="status.set($any($event.target).value)"
+>
+    <option value="All">All</option>
+    <option value="Open">Open</option>
+    <option value="Resolved">Resolved</option>
+</select>
