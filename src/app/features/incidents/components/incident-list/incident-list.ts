@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component,computed,effect,signal,linkedSignal } from '@angular/core';
+import { Component,computed,effect,signal,linkedSignal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Incident } from '../../models/incident.model';
 import { IncidentStatusPipe } from '../../../../incidentStatus.pipe';
@@ -8,6 +8,7 @@ import { IncidentCard } from '../incident-card/incident-card';
 import { FilterBar } from '../filter-bar/filter-bar';
 import { PageHeader } from '../page-header/page-header';
 import { Panel } from '../panel/panel';
+import { IncidentWorkspaceService } from '../../data-access/incident-workspace.service';
 
 type SeverityFilter='All'|'Low'|'Critical'|'Medium';
 
@@ -19,6 +20,8 @@ type SeverityFilter='All'|'Low'|'Critical'|'Medium';
   standalone:true
 })
 export class IncidentList {
+
+  readonly workspace=inject(IncidentWorkspaceService);
 
   constructor(){
     effect(()=>{
@@ -161,6 +164,8 @@ export class IncidentList {
     );
   };
 
-
+  selectedIncident(id:number){
+    this.workspace.selectIncident(id);
+  }
 
 };

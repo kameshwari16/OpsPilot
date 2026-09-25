@@ -4,6 +4,7 @@ import { Incidents } from './features/incidents/incidents';
 import { Approvals } from './features/approvals/approvals';
 import { Assets } from './features/assets/assets';
 import { Audit } from './features/audit/audit';
+import { IncidentWorkspaceService } from './features/incidents/data-access/incident-workspace.service';
 export const routes: Routes = [
     {
         path: '',
@@ -15,8 +16,14 @@ export const routes: Routes = [
         component: Dashboard
     },
     {
-        path: 'incidents',
-        component: Incidents
+        path: '',
+        providers:[IncidentWorkspaceService],
+        children:[{
+          path:'incidents',
+          loadComponent:() =>
+            import('./features/incidents/incidents')
+            .then(m=>m.Incidents)
+        }]
     },
     {
     path: 'approvals',

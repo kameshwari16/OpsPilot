@@ -78,3 +78,9 @@
 <div>
     <p>Number of open incidents: {{openCount()}}</p>
 </div>
+
+<button (click)="selectedIncident(101)">
+    Selected Incident Id 101
+</button>
+
+<p>Seleted: {{workspace.selectedIncidentId()}}</p>
